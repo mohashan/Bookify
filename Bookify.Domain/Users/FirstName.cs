@@ -4,6 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookify.Domain.Apartments;
+namespace Bookify.Domain.Users;
 
-public record Name(string value);
+public record FirstName(string value);
