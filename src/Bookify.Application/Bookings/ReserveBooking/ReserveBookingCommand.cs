@@ -3,6 +3,7 @@ using Bookify.Application.Abstractions.Messaging;
 using Bookify.Domain.Abstractions;
 using Bookify.Domain.Apartments;
 using Bookify.Domain.Bookings;
+using Bookify.Domain.Bookings.Events;
 using Bookify.Domain.Users;
 using System;
 using System.Collections.Generic;
@@ -69,5 +70,6 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
 
         bookingRepository.Add(booking);
         await unitOfWork.SaveChangesAsync(cancellationToken);
+        return Result.Success(booking.Id);
     }
 }
