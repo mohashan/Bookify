@@ -8,5 +8,5 @@ namespace Bookify.Domain.Abstractions;
 
 public interface IUnitOfWork
 {
-    Task<int> SaveChanges(CancellationToken cancellationToken = default);
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
