@@ -18,6 +18,7 @@ public sealed class Booking : Entity
         Guid userId,
         DateRange duration,
         Money priceForPeriod,
+        Money cleaningFee,
         Money amenitiesUpCharge,
         Money totalPrice,
         BookingStatus status,
@@ -41,6 +42,7 @@ public sealed class Booking : Entity
     public DateRange Duration { get; private set; }
 
     public Money PriceForPeriod { get; private set; }
+    public Money CleaningFee { get; private set; }
 
     public Money AmenitiesUpCharge { get; private set; }
 
@@ -69,6 +71,7 @@ public sealed class Booking : Entity
             userId,
             duration,
             pricingDetails.PriceForPeriod,
+            pricingDetails.CleaningFee,
             pricingDetails.AmenitiesUpCharge,
             pricingDetails.TotalPrice,
             BookingStatus.Reserved,
