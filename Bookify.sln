@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookify.Application", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookify.Domain", "src\Bookify.Domain\Bookify.Domain.csproj", "{8041CEBA-16B6-4E50-A52C-CC4CB49B862C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Infrastructure", "src\Bookify.Infrastructure\Bookify.Infrastructure\Bookify.Infrastructure.csproj", "{41945CD3-F15C-481E-ADEA-4B3F35EAFED1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookify.Infrastructure", "src\Bookify.Infrastructure\Bookify.Infrastructure\Bookify.Infrastructure.csproj", "{41945CD3-F15C-481E-ADEA-4B3F35EAFED1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Api", "src\Bookify.Api\Bookify.Api.csproj", "{37838001-4122-4FC7-AB32-9C9A9C1665A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{41945CD3-F15C-481E-ADEA-4B3F35EAFED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41945CD3-F15C-481E-ADEA-4B3F35EAFED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41945CD3-F15C-481E-ADEA-4B3F35EAFED1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37838001-4122-4FC7-AB32-9C9A9C1665A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37838001-4122-4FC7-AB32-9C9A9C1665A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37838001-4122-4FC7-AB32-9C9A9C1665A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37838001-4122-4FC7-AB32-9C9A9C1665A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{3B03B723-A580-4044-BF7F-9AA0BC0CECEF} = {8E79EB3E-50FD-4EF9-8916-C6A651980318}
 		{8041CEBA-16B6-4E50-A52C-CC4CB49B862C} = {8E79EB3E-50FD-4EF9-8916-C6A651980318}
 		{41945CD3-F15C-481E-ADEA-4B3F35EAFED1} = {8E79EB3E-50FD-4EF9-8916-C6A651980318}
+		{37838001-4122-4FC7-AB32-9C9A9C1665A6} = {8E79EB3E-50FD-4EF9-8916-C6A651980318}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F3ECD53-FC36-4E1E-BEA4-577DC2FC141D}

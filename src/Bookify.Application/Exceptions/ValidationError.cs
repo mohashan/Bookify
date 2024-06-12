@@ -6,3 +6,8 @@ using System.Threading.Tasks;
 
 namespace Bookify.Application.Exceptions;
 public sealed record ValidationError(string PropertyName, string ErrorMessage);
+
+public sealed class ConcurrencyException(string message, Exception innerException) : Exception(message, innerException)
+{
+
+}
