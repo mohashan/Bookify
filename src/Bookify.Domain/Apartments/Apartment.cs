@@ -10,6 +10,7 @@ namespace Bookify.Domain.Apartments;
 
 public sealed class Apartment : Entity
 {
+    private Apartment() { }
     public Apartment(
         Guid id,
         Name name,
@@ -18,7 +19,7 @@ public sealed class Apartment : Entity
         Money price,
         Money cleaningFee,
         List<Amenity> amenities)
-        :base(id) 
+        :base(id)
     {
         Name = name;
         Description = description;
