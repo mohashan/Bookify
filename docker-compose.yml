@@ -12,13 +12,16 @@ services:
 
   bookify-db:
     image: postgres:latest
+    #entrypoint: ["echo 'host all all all scram-sha-256' >> /var/lib/postgresql/data/pg_hba.conf"]
     container_name: Bookify.Db
     environment:
       - POSTGRES_DB=bookify
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust 
     volumes:
       - ./.containers/database:/var/lib/postgresql/data
+      - ./.files/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
     ports:
       - 5432:5432
 
@@ -26,11 +29,6 @@ services:
     image: quay.io/keycloak/keycloak:latest
     container_name: Bookify.Identity
     environment:
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://bookify-db:5432/keycloak
-      KC_DB_USERNAME: postgres
-      KC_DB_PASSWORD: postgres
-
       KC_HOSTNAME: localhost
       KC_HOSTNAME_PORT: 18080
       KC_HOSTNAME_STRICT: false
@@ -41,7 +39,7 @@ services:
       KC_HEALTH_ENABLED: true
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-    command: start-dev
+    command: start-dev --import-realm
     depends_on:
       - bookify-db
     volumes:
