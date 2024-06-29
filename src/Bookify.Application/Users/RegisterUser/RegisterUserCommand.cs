@@ -1,5 +1,4 @@
 ﻿using Bookify.Application.Abstractions.Messaging;
-using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +12,3 @@ public sealed record RegisterUserCommand(
     string FirstName,
     string LastName,
     string Password):ICommand<Guid>;
-
-
-internal sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
-{
-    public RegisterUserCommandValidator()
-    {
-        RuleFor(c=>c.Email).EmailAddress();
-
-        RuleFor(c=>c.FirstName).NotEmpty();
-        RuleFor(c=>c.LastName).NotEmpty();
-
-        RuleFor(c=>c.Password).NotEmpty().MinimumLength(5);
-    }
-}

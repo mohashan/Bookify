@@ -5,12 +5,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookify.Api.Controllers.Apartments;
-
+[Authorize]
 [ApiController]
-[Route("api/Apartments")]
+[Route("api/apartments")]
 public class ApartmentsController(ISender sender) : ControllerBase
 {
-    [Authorize]
     [HttpGet]
     public async Task<IActionResult> SearchApartments(DateOnly startDate, DateOnly endDate,CancellationToken cancellationToken)
     {
