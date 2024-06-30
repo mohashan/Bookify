@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bookify.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class create_database : Migration
+    public partial class createdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -43,7 +43,8 @@ namespace Bookify.Infrastructure.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     first_name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     last_name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    email = table.Column<string>(type: "character varying(400)", maxLength: 400, nullable: false)
+                    email = table.Column<string>(type: "character varying(400)", maxLength: 400, nullable: false),
+                    identity_id = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -160,6 +161,12 @@ namespace Bookify.Infrastructure.Migrations
                 name: "ix_users_email",
                 table: "users",
                 column: "email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_users_identity_id",
+                table: "users",
+                column: "identity_id",
                 unique: true);
         }
 

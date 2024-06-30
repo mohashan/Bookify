@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bookify.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240613211608_create_database")]
-    partial class create_database
+    [Migration("20240630041219_create-db")]
+    partial class createdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -186,6 +186,11 @@ namespace Bookify.Infrastructure.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("first_name");
 
+                    b.Property<string>("IdentityId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("identity_id");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -198,6 +203,10 @@ namespace Bookify.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasDatabaseName("ix_users_email");
+
+                    b.HasIndex("IdentityId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_users_identity_id");
 
                     b.ToTable("users", (string)null);
                 });

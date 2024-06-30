@@ -1,4 +1,5 @@
-﻿using Bookify.Application.Users.RegisterUser;
+﻿using Bookify.Application.Users.LogInUser;
+using Bookify.Application.Users.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace Bookify.Api.Controllers.Users;
 
 [ApiController]
 [Route("api/user")]
-public class UsersController:ControllerBase
+public class UsersController : ControllerBase
 {
     private readonly ISender sender;
 
@@ -20,13 +21,27 @@ public class UsersController:ControllerBase
     [HttpPost("Register")]
     public async Task<IActionResult> Register(RegisterUserRequest request, CancellationToken cancellationToken)
     {
-        var command = new RegisterUserCommand(request.Email,request.FirstName,request.LastName,request.Password);
+        var command = new RegisterUserCommand(request.Email, request.FirstName, request.LastName, request.Password);
 
-        var result = await sender.Send(command,cancellationToken);
+        var result = await sender.Send(command, cancellationToken);
 
         if (result.IsFailure)
         {
             return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
+
+    [AllowAnonymous, HttpPost("login")]
+    public async Task<IActionResult> LogIn(LogInUserRequest request, CancellationToken cancellationToken)
+    {
+        var command = new LogInUserCommand(request.Email, request.Password);
+
+        var result = await sender.Send(command, cancellationToken);
+        if (result.IsFailure)
+        {
+            return Unauthorized(result.Error);
         }
 
         return Ok(result.Value);

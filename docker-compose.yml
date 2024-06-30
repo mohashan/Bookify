@@ -9,75 +9,31 @@ services:
       dockerfile: src/Bookify.Api/Dockerfile
     depends_on:
       - bookify-db
-      - bookify-idp
     ports:
       - 5000:8080
       - 5001:8081
-    networks:
-      - bookify_network
 
   bookify-db:
     image: postgres:latest
-    #entrypoint: ["echo 'host all all all scram-sha-256' >> /var/lib/postgresql/data/pg_hba.conf"]
     container_name: Bookify.Db
     environment:
       - POSTGRES_DB=bookify
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST_AUTH_METHOD=trust 
     volumes:
-      - ./.containers/database/bookify-db:/var/lib/postgresql/data
+      - ./.containers/database:/var/lib/postgresql/data
     ports:
       - 5432:5432
-    networks:
-      - bookify_network
-    
-
-  keycloak-db:
-    image: postgres:latest
-    container_name: KeyCloak.Db
-    environment:
-      - POSTGRES_DB=keycloak
-      - POSTGRES_USER=keycloak
-      - POSTGRES_PASSWORD=keycloak
-      - POSTGRES_HOST_AUTH_METHOD=trust 
-    volumes:
-      - ./.containers/database/keycloak-db:/var/lib/postgresql/data
-    ports:
-      - 15432:5432
-    networks:
-      - bookify_network
 
   bookify-idp:
     image: quay.io/keycloak/keycloak:latest
     container_name: Bookify.Identity
+    command: start-dev --import-realm
     environment:
-      KC_HOSTNAME: localhost
-      KC_HOSTNAME_PORT: 18080
-      KC_HOSTNAME_STRICT_BACKCHANNEL: false
-      KC_HTTP_ENABLED: true
-      KC_HOSTNAME_STRICT: false
-      KC_HOSTNAME_STRICT_HTTPS: false
-
-      KC_LOG_LEVEL: info
-      KC_METRICS_ENABLED: true
-      KC_HEALTH_ENABLED: true
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloak-db/keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: keycloak
-    command: start --import-realm
-    depends_on:
-      - keycloak-db
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
     volumes:
-      - ./.files/bookify-realm-export.json:/opt/keycloak/data/import/bookify-realm-export.json
+      - ./.containers/identity:/opt/keycloak/data
+      - ./.files/bookify-realm-export.json:/opt/keycloak/data/import/realm.json
     ports:
       - 18080:8080
-    networks:
-      - bookify_network
-
-networks:
-  bookify_network:
-    driver: bridge

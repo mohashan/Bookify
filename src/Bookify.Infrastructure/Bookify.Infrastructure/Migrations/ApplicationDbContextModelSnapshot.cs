@@ -183,6 +183,11 @@ namespace Bookify.Infrastructure.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("first_name");
 
+                    b.Property<string>("IdentityId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("identity_id");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -195,6 +200,10 @@ namespace Bookify.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasDatabaseName("ix_users_email");
+
+                    b.HasIndex("IdentityId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_users_identity_id");
 
                     b.ToTable("users", (string)null);
                 });
