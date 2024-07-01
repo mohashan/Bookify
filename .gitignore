@@ -367,3 +367,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /.containers/database
+/.containers/identity/h2/keycloakdb.mv.db
