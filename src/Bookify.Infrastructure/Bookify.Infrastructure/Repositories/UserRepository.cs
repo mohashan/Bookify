@@ -12,4 +12,13 @@ internal sealed class UserRepository:Repository<User>,IUserRepository
     {
         
     }
+    public override void Add(User user)
+    {
+        foreach (var role in user.Roles)
+        {
+            context.Attach(role);
+        }
+
+        context.Add(user);    
+    }
 }

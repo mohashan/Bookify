@@ -18,7 +18,7 @@ internal sealed class SqlConnectionFactory : ISqlConnectionFactory
         _connectionString = connectionString;
     }
 
-    public IDbConnection createConnection()
+    public IDbConnection CreateConnection()
     {
         var connection = new NpgsqlConnection(_connectionString);
         connection.Open();

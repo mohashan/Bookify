@@ -33,3 +33,18 @@ internal sealed class UserConfiguration:IEntityTypeConfiguration<User>
     }
 
 }
+
+internal sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
+{
+    public void Configure(EntityTypeBuilder<Role> builder)
+    {
+        builder.ToTable("roles");
+
+        builder.HasKey(u => u.Id);
+
+        builder.HasMany(c => c.Users)
+            .WithMany(c => c.Roles);
+
+        builder.HasData(Role.Registered);
+    }
+}

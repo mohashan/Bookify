@@ -22,7 +22,7 @@ internal sealed class SearchApartmentsQueryHandler(ISqlConnectionFactory sqlConn
             return new List<ApartmentResponse>();
         }
 
-        using var connection = sqlConnectionFactory.createConnection();
+        using var connection = sqlConnectionFactory.CreateConnection();
 
         const string sql = """
             SELECT

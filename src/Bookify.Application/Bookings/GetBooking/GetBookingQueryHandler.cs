@@ -32,7 +32,7 @@ internal sealed class GetBookingQueryHandler(ISqlConnectionFactory sqlConnection
 
     public async Task<Result<BookingResponse>> Handle(GetBookingQuery request, CancellationToken cancellationToken)
     {
-        using var connection = sqlConnectionFactory.createConnection();
+        using var connection = sqlConnectionFactory.CreateConnection();
 
         var booking = await connection.QueryFirstOrDefaultAsync<BookingResponse>(sql, new { request.BookingId });
 

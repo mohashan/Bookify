@@ -22,7 +22,7 @@ internal abstract class Repository<T>
         return await context.Set<T>().FirstOrDefaultAsync(c=>c.Id == id,cancellationToken);
     }
 
-    public void Add(T entity)
+    public virtual void Add(T entity)
     {
         context.Add(entity);
     }

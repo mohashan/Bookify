@@ -13,7 +13,7 @@ public static class SeedDataExtensions
 
         var sqlConnectionFactory = scope.ServiceProvider.GetRequiredService<ISqlConnectionFactory>();
 
-        using var connection = sqlConnectionFactory.createConnection();
+        using var connection = sqlConnectionFactory.CreateConnection();
 
         var faker = new Faker();
 
