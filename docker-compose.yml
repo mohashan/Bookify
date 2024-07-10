@@ -1,18 +1,6 @@
 version: '3.4'
 
 services:
-  bookify.api:
-    image: ${DOCKER_REGISTRY-}bookifyapi
-    container_name: Bookify.Api
-    build:
-      context: .
-      dockerfile: src/Bookify.Api/Dockerfile
-    depends_on:
-      - bookify-db
-    ports:
-      - 5000:8080
-      - 5001:8081
-
   bookify-db:
     image: postgres:latest
     container_name: Bookify.Db
@@ -24,6 +12,18 @@ services:
       - ./.containers/database:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  bookify.api:
+    image: ${DOCKER_REGISTRY-}bookifyapi
+    container_name: Bookify.Api
+    build:
+      context: .
+      dockerfile: src/Bookify.Api/Dockerfile
+    depends_on:
+      - bookify-db
+    ports:
+      - 5000:8080
+      - 5001:8081
 
   bookify-idp:
     image: quay.io/keycloak/keycloak:latest

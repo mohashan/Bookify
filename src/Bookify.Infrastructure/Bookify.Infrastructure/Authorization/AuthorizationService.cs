@@ -21,9 +21,19 @@ internal sealed class AuthorizationService
         var roles = await context.Set<User>().Include(c=>c.Roles).Where(c => c.IdentityId == identityId)
             .Select(c=>new UserRoleResponse
             {
-                Id = c.Id,
+                UserId = c.Id,
                 Roles = c.Roles.ToList()
             }).FirstOrDefaultAsync();
         return roles;
+    }
+
+    public async Task<HashSet<string>> GetPermissionsForUserAsync(string identityId)
+    {
+        var permissions = await context.Set<User>()
+            .Where(u => u.IdentityId == identityId)
+            .SelectMany(u => u.Roles.Select(r => r.Permissions))
+            .FirstAsync();
+
+        return permissions.Select(p => p.Name).ToHashSet();
     }
 }
