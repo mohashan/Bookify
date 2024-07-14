@@ -10,38 +10,38 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bookify.Application.Abstractions.Behaviors;
-public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest,TResponse>> logger) : IPipelineBehavior<TRequest, TResponse>
+public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IBaseRequest
-	where TResponse : Result
+    where TResponse : Result
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         var name = request.GetType().Name;
 
-		try
-		{
-			logger.LogInformation($"Executing request {name}");
+        try
+        {
+            logger.LogInformation($"Executing request {name}");
 
-			var result = await next();
+            var result = await next();
 
-			if (result.IsSuccess)
-			{
-				logger.LogInformation($"Request {name} processed successfully");
-			}
-			else
-			{
-				using (LogContext.PushProperty("Error", result.Error, true))
-				{
-					logger.LogError($"Request {name} processed with error");
-				}
+            if (result.IsSuccess)
+            {
+                logger.LogInformation($"Request {name} processed successfully");
+            }
+            else
+            {
+                using (LogContext.PushProperty("Error", result.Error, true))
+                {
+                    logger.LogError($"Request {name} processed with error");
+                }
 
-			}
+            }
             return result;
-		}
-		catch (Exception exception)
-		{
-			logger.LogError(exception, $"Request {name} processing failed");
-			throw;
-		}
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception, $"Request {name} processing failed");
+            throw;
+        }
     }
 }
