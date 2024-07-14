@@ -1,6 +1,8 @@
 ﻿using Bookify.Application.Abstractions.Messaging;
+using Bookify.Domain.Abstractions;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Serilog.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bookify.Application.Abstractions.Behaviors;
-public class LoggingBehavior<TRequest, TResponse>(ILogger<TRequest> logger) : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IBaseCommand
+public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest,TResponse>> logger) : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IBaseRequest
+	where TResponse : Result
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
@@ -17,17 +20,27 @@ public class LoggingBehavior<TRequest, TResponse>(ILogger<TRequest> logger) : IP
 
 		try
 		{
-			logger.LogInformation($"Executing command {name}");
+			logger.LogInformation($"Executing request {name}");
 
 			var result = await next();
 
-			logger.LogInformation($"Command {name} processed successfully");
+			if (result.IsSuccess)
+			{
+				logger.LogInformation($"Request {name} processed successfully");
+			}
+			else
+			{
+				using (LogContext.PushProperty("Error", result.Error, true))
+				{
+					logger.LogError($"Request {name} processed with error");
+				}
 
-			return result;
+			}
+            return result;
 		}
 		catch (Exception exception)
 		{
-			logger.LogError(exception, $"Commad {name} processing failed");
+			logger.LogError(exception, $"Request {name} processing failed");
 			throw;
 		}
     }

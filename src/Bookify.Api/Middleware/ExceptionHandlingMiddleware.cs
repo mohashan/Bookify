@@ -36,7 +36,7 @@ public class ExceptionHandlingMiddleware
                 Title = exceptionDetails.Title,
             };
 
-            if(exceptionDetails.Errors is not null)
+            if (exceptionDetails.Errors is not null)
             {
                 problemDetails.Extensions["errors"] = exceptionDetails.Errors;
             }

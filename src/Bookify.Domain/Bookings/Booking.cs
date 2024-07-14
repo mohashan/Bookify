@@ -33,6 +33,7 @@ public sealed class Booking : Entity
         UserId = userId;
         Duration = duration;
         PriceForPeriod = priceForPeriod;
+        CleaningFee = cleaningFee; 
         AmenitiesUpCharge = amenitiesUpCharge;
         TotalPrice = totalPrice;
         Status = status;
