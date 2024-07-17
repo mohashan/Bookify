@@ -42,16 +42,7 @@ internal sealed class CacheService : ICacheService
 
     private static T Deserialize<T>(byte[] bytes)
     {
-        T result = default!;
-        try
-        {
-            result = JsonSerializer.Deserialize<T>(bytes)!;
-            return result;
-        }
-        catch (Exception ex)
-        {
-            return default!;
-        }
+        return JsonSerializer.Deserialize<T>(bytes)!;
     }
 
     private static byte[] Serialize<T>(T value)
