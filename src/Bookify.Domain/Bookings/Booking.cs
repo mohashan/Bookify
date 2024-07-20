@@ -127,7 +127,7 @@ public sealed class Booking : Entity
         }
 
         Status = BookingStatus.Completed;
-        ConfirmedOnUtc = utcNow;
+        CompletedOnUtc = utcNow;
 
         RaiseDomainEvent(new BookingCompletedDomainEvent(Id));
 

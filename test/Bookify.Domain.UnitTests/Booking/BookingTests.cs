@@ -8,7 +8,7 @@ using Bookify.Domain.Users;
 using FluentAssertions;
 
 namespace Bookify.Domain.UnitTests.Booking;
-public class BookingTests:BaseTest
+public partial class BookingTests:BaseTest
 {
     [Fact]
     public void Reserved_Should_RaiseBookingReservedDomainModel()
@@ -28,4 +28,6 @@ public class BookingTests:BaseTest
 
         domainEvent.BookingId.Should().Be(booking.Id);
     }
+
+    
 }
