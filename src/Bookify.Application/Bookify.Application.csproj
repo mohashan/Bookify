@@ -11,6 +11,7 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.1" />
     <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+    <PackageReference Include="Serilog" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,9 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Serilog">
-      <HintPath>..\..\..\..\..\Nugets\serilog\4.0.0\lib\net8.0\Serilog.dll</HintPath>
-    </Reference>
+	  <InternalsVisibleTo Include="Bookify.Application.UnitTests"/>
   </ItemGroup>
 
 </Project>
